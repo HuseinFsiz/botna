@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوتنا - خدمة الردود التلقائية الذكية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #87ceeb;
+        }
+
+        .lang-switch {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .lang-switch:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 4rem 0;
+            background: white;
+            text-align: center;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #2a5298;
+        }
+
+        .feature-item h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 4rem 0;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: #2a5298;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .features-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .features-list li:before {
+            content: "✓";
+            color: #2a5298;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2a5298;
+        }
+
+        .contact-item h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e3c72;
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* English version styles */
+        .english {
+            direction: ltr;
+        }
+
+        .english .nav {
+            flex-direction: row-reverse;
+        }
+
+        .english .hero-buttons {
+            flex-direction: row;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Arabic Version -->
+    <div id="arabic-version">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav container">
+                <div class="logo">بوتنا</div>
+                <ul class="nav-links">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#services">الخدمات</a></li>
+                    <li><a href="#features">المميزات</a></li>
+                    <li><a href="#pricing">الأسعار</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+                <button class="lang-switch" onclick="toggleLanguage()">English</button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>بوتنا - مساعدك الذكي للردود التلقائية</h1>
+                <p>حلول متطورة للرد التلقائي على واتساب، انستغرام، فيسبوك وتلي</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">ابدأ الآن</a>
+                    <a href="#services" class="btn btn-secondary">تعرف على الخدمات</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="container">
+                <h2>شاهد كيف يعمل بوتنا</h2>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <p>🎥 فيديو توضيحي عن خدمة بوتنا<br>
+                        يمكنك رفع الفيديو الخاص بك هنا</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2>خدماتنا</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><img src="icons8-whatsapp-logo-100.png"></div>
+                        <h3>واتساب</h3>
+                        <p>ردود تلقائية ذكية على واتساب للأعمال مع إمكانية حجز المواعيد وإدارة الطلبات</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><img src="icons8-instagram-logo-100 (1).png"></div>
+                        <h3>انستغرام</h3>
+                        <p>إدارة الرسائل والتعليقات تلقائياً مع ردود مخصصة لكل نوع من الاستفسارات</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><img src="icons8-facebook-logo-100 (1).png"></div>
+                        <h3>فيسبوك</h3>
+                        <p>ردود فورية على صفحة فيسبوك وإدارة استفسارات العملاء بشكل احترافي</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><img src="telegram.png"></div>
+                        <h3>تلي</h3>
+                        <p>بوت تلي متطور للرد على الاستفسارات وتقديم الخدمات بشكل تلقائي</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2>لماذا بوتنا؟</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h3>⚡ ردود فورية</h3>
+                        <p>ردود تلقائية في أقل من ثانية واحدة، مما يضمن رضا العملاء وعدم فقدان أي فرصة عمل</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🏥 مخصص للقطاع الطبي</h3>
+                        <p>حلول متخصصة لحجز المواعيد الطبية وإدارة استفسارات المرضى بشكل احترافي</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🔧 سهولة الإعداد</h3>
+                        <p>إعداد بسيط وسريع دون الحاجة لخبرة تقنية، مع دعم فني متواصل</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📊 تقارير مفصلة</h3>
+                        <p>إحصائيات شاملة عن الرسائل والردود لمساعدتك في اتخاذ قرارات عملك</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🌐 متعدد المنصات</h3>
+                        <p>إدارة جميع منصات التواصل من مكان واحد مع ردود موحدة ومتسقة</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🔒 آمان وخصوصية</h3>
+                        <p>حماية كاملة لبيانات العملاء مع أعلى معايير الأمان والخصوصية</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <h2>الأسعار</h2>
+                <div class="pricing-card">
+                    <div class="price">15,000</div>
+                    <div class="price-period">دينار عراقي شهرياً</div>
+                    <ul class="features-list">
+                        <li>ردود تلقائية على جميع المنصات</li>
+                        <li>حجز مواعيد تلقائي</li>
+                        <li>إدارة الطلبات</li>
+                        <li>تقارير مفصلة</li>
+                        <li>دعم فني 24/7</li>
+                        <li>تخصيص الردود</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">اشترك الآن</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>تواصل معنا</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon"><img src="icons8-whatsapp-logo-100.png"></div>
+                        <h3>واتساب</h3>
+                        <a href="https://wa.me/9647742635990">07742635990</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><img src="telegram.png"></div>
+                        <h3>تلي</h3>
+                        <a href="https://t.me/T2T3G">@T2T3G</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><img src="icons8-email-50.png"></div>
+                        <h3>البريد الإلكتروني</h3>
+                        <a href="mailto:huseinfaiz177@gmail.com">huseinfaiz177@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 بوتنا - جميع الحقوق محفوظة</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- English Version -->
+    <div id="english-version" class="english hidden">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav container">
+                <div class="logo">BOTNA</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <button class="lang-switch" onclick="toggleLanguage()">العربية</button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>BOTNA - Your Smart Auto-Reply Assistant</h1>
+                <p>Advanced solutions for automatic replies on WhatsApp, Instagram, Facebook, and Telegram</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get Started</a>
+                    <a href="#services" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="container">
+                <h2>See How BOTNA Works</h2>
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <p>🎥 BOTNA Service Demo Video<br>
+                        You can upload your video here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">📱</div>
+                        <h3>WhatsApp</h3>
+                        <p>Smart auto-replies on WhatsApp Business with appointment booking and order management</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📷</div>
+                        <h3>Instagram</h3>
+                        <p>Automatic message and comment management with customized responses for each type of inquiry</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">👥</div>
+                        <h3>Facebook</h3>
+                        <p>Instant replies on Facebook pages and professional customer inquiry management</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">✈️</div>
+                        <h3>Telegram</h3>
+                        <p>Advanced Telegram bot for responding to inquiries and providing services automatically</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2>Why Choose BOTNA?</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h3>⚡ Instant Responses</h3>
+                        <p>Automatic replies in less than one second, ensuring customer satisfaction and no missed opportunities</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🏥 Medical Sector Specialized</h3>
+                        <p>Specialized solutions for medical appointment booking and professional patient inquiry management</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🔧 Easy Setup</h3>
+                        <p>Simple and quick setup without technical expertise required, with continuous technical support</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📊 Detailed Reports</h3>
+                        <p>Comprehensive statistics on messages and replies to help you make informed business decisions</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🌐 Multi-Platform</h3>
+                        <p>Manage all social media platforms from one place with unified and consistent responses</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🔒 Security & Privacy</h3>
+                        <p>Complete protection of customer data with the highest security and privacy standards</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <h2>Pricing</h2>
+                <div class="pricing-card">
+                    <div class="price">15,000</div>
+                    <div class="price-period">Iraqi Dinar Monthly</div>
+                    <ul class="features-list">
+                        <li>Auto-replies on all platforms</li>
+                        <li>Automatic appointment booking</li>
+                        <li>Order management</li>
+                        <li>Detailed reports</li>
+                        <li>24/7 Technical support</li>
+                        <li>Custom responses</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Subscribe Now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/9647742635990">07742635990</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✈️</div>
+                        <h3>Telegram</h3>
+                        <a href="https://t.me/T2T3G">@T2T3G</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <a href="mailto:huseinfaiz177@gmail.com">huseinfaiz177@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 BOTNA - All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function toggleLanguage() {
+            const arabicVersion = document.getElementById('arabic-version');
+            const englishVersion = document.getElementById('english-version');
+            
+            if (arabicVersion.classList.contains('hidden')) {
+                arabicVersion.classList.remove('hidden');
+                englishVersion.classList.add('hidden');
+                document.documentElement.lang = 'ar';
+                document.documentElement.dir = 'rtl';
+            } else {
+                arabicVersion.classList.add('hidden');
+                englishVersion.classList.remove('hidden');
+                document.documentElement.lang = 'en';
+                document.documentElement.dir = 'ltr';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(30, 60, 114, 0.95)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
